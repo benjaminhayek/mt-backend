@@ -67,7 +67,7 @@ app.locals.title = 'users';
   
     for(let requiredParam of ['movie_id', 'user_id', 'title', 'poster_path', 'release_date', 'vote_average', 'overview']) {
         if(!favorite[requiredParam]) {
-            response.status(422).json({error: error.message})
+            response.status(422).json({error: error.message `${requiredParam} is missing`})
         }
     }
   
@@ -91,7 +91,7 @@ app.locals.title = 'users';
   app.delete('/api/users/:id/favorites/:movie_id', (request, response) => {
     const { id, movie_id } = request.params
     
-    database('favorites').where('id', movie_id).del()
+    database('favorites').where('movie_id', movie_id).del()
     .then(favorite => {
       response.status(201).json(id)
     })
